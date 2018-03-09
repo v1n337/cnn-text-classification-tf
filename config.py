@@ -1,5 +1,8 @@
-positive_data_file = "./data/rt-polaritydata/rt-polarity.pos"
-negative_data_file = "./data/rt-polaritydata/rt-polarity.neg"
+train_positive_data_file = "./data/pos.txt"
+train_negative_data_file = "./data/neg.txt"
+
+eval_positive_data_file = "./data/pos-eval.txt"
+eval_negative_data_file = "./data/neg-eval.txt"
 
 # Eval Parameters
 batch_size = 64

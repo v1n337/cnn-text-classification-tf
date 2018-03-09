@@ -11,13 +11,8 @@ import config
 import data_helpers
 
 
-# CHANGE THIS: Load data. Load your own data here
-if config.eval_train:
-    x_raw, y_test = data_helpers.load_data_and_labels(config.positive_data_file, config.negative_data_file)
-    y_test = np.argmax(y_test, axis=1)
-else:
-    x_raw = ["a masterpiece four years in the making", "everything is off."]
-    y_test = [1, 0]
+x_raw, y_test = data_helpers.load_data_and_labels(config.eval_positive_data_file, config.eval_negative_data_file)
+y_test = np.argmax(y_test, axis=1)
 
 # Map data into vocabulary
 vocab_path = os.path.join(config.checkpoint_dir, "..", "vocab")

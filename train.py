@@ -15,7 +15,7 @@ from tensorflow.contrib import learn
 
 # Load data
 print("Loading data...")
-x_text, y = data_helpers.load_data_and_labels(config.positive_data_file, config.negative_data_file)
+x_text, y = data_helpers.load_data_and_labels(config.train_positive_data_file, config.train_negative_data_file)
 
 # Build vocabulary
 max_document_length = max([len(x.split(" ")) for x in x_text])
