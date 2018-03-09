@@ -26,8 +26,9 @@ print("\nEvaluating...\n")
 checkpoint_file = tf.train.latest_checkpoint(config.checkpoint_dir)
 graph = tf.Graph()
 with graph.as_default():
+    gpu_options = tf.GPUOptions(allow_growth=True)
     session_conf = tf.ConfigProto(
-        allow_growth=True,
+        gpu_options=gpu_options,
         allow_soft_placement=config.allow_soft_placement,
         log_device_placement=config.log_device_placement)
     sess = tf.Session(config=session_conf)

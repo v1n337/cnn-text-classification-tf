@@ -5,7 +5,7 @@ eval_positive_data_file = "./data/pos-eval.txt"
 eval_negative_data_file = "./data/neg-eval.txt"
 
 # Eval Parameters
-batch_size = 64
+batch_size = 32
 checkpoint_dir = ""
 eval_train = False
 
@@ -14,7 +14,7 @@ allow_soft_placement = True
 log_device_placement = False
 
 # Data loading params
-dev_sample_percentage = .1
+dev_sample_percentage = .01
 
 # Model Hyperparameters
 embedding_dim = 128

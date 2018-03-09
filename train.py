@@ -44,9 +44,11 @@ print("Train/Dev split: {:d}/{:d}".format(len(y_train), len(y_dev)))
 # ==================================================
 
 with tf.Graph().as_default():
+    gpu_options = tf.GPUOptions(allow_growth=True)
     session_conf = tf.ConfigProto(
-      allow_soft_placement=config.allow_soft_placement,
-      log_device_placement=config.log_device_placement)
+        gpu_options=gpu_options,
+        allow_soft_placement=config.allow_soft_placement,
+        log_device_placement=config.log_device_placement)
     sess = tf.Session(config=session_conf)
     with sess.as_default():
         cnn = TextCNN(
