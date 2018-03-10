@@ -1,7 +1,9 @@
 #! /usr/bin/env python
 
+import sys
 import csv
 import os
+import argparse
 
 import numpy as np
 import tensorflow as tf
@@ -10,12 +12,17 @@ from tensorflow.contrib import learn
 import config
 import data_helpers
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--checkpoint-dir", type=str, required=True)
+args_namespace = parser.parse_args(sys.argv[1:])
+command_line_args = vars(args_namespace)
+checkpoint_dir = command_line_args['checkpoint_dir']
 
 x_raw, y_test = data_helpers.load_data_and_labels(config.eval_positive_data_file, config.eval_negative_data_file)
 y_test = np.argmax(y_test, axis=1)
 
 # Map data into vocabulary
-vocab_path = os.path.join(config.checkpoint_dir, "..", "vocab")
+vocab_path = os.path.join(checkpoint_dir, "..", "vocab")
 vocab_processor = learn.preprocessing.VocabularyProcessor.restore(vocab_path)
 x_test = np.array(list(vocab_processor.transform(x_raw)))
 
@@ -23,7 +30,7 @@ print("\nEvaluating...\n")
 
 # Evaluation
 # ==================================================
-checkpoint_file = tf.train.latest_checkpoint(config.checkpoint_dir)
+checkpoint_file = tf.train.latest_checkpoint(checkpoint_dir)
 graph = tf.Graph()
 with graph.as_default():
     gpu_options = tf.GPUOptions(allow_growth=True)
@@ -63,7 +70,8 @@ if y_test is not None:
 
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
-out_path = os.path.join(config.checkpoint_dir, "..", "prediction.csv")
+out_path = os.path.join(checkpoint_dir, "..", "prediction.csv")
 print("Saving evaluation to {0}".format(out_path))
 with open(out_path, 'w') as f:
     csv.writer(f).writerows(predictions_human_readable)
+print("Execution complete")

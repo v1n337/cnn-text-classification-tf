@@ -1,6 +1,7 @@
 *.npy
 runs/
 .idea/
+data/
 
 # Created by https://www.gitignore.io/api/python,ipythonnotebook
 
