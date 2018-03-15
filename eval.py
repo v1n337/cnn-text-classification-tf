@@ -8,6 +8,7 @@ import argparse
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib import learn
+from sklearn.metrics import confusion_matrix
 
 import config
 import data_helpers
@@ -67,6 +68,10 @@ if y_test is not None:
     correct_predictions = float(sum(all_predictions == y_test))
     print("Total number of test examples: {}".format(len(y_test)))
     print("Accuracy: {:g}".format(correct_predictions/float(len(y_test))))
+
+    print("Confusion matrix:\n")
+    print(confusion_matrix(y_true=y_test, y_pred=all_predictions))
+
 
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
