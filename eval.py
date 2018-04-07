@@ -8,7 +8,7 @@ import argparse
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib import learn
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, f1_score
 
 import config
 import data_helpers
@@ -67,11 +67,11 @@ with graph.as_default():
 if y_test is not None:
     correct_predictions = float(sum(all_predictions == y_test))
     print("Total number of test examples: {}".format(len(y_test)))
-    print("Accuracy: {:g}".format(correct_predictions/float(len(y_test))))
+    print("Accuracy: {:g}".format(correct_predictions / float(len(y_test))))
+    print("F1-Score: {:g}".format(f1_score(y_true=y_test, y_pred=all_predictions)))
 
     print("Confusion matrix:\n")
     print(confusion_matrix(y_true=y_test, y_pred=all_predictions))
-
 
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
